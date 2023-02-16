@@ -1,7 +1,12 @@
 export default function ehUmCPF(campo){
     const cpf = campo.value.replace(/\.|-/g, "");
+    console.log(cpf)
+    if(verificaNumerosRepetidos(cpf) || verificaPrimeiroDigito(cpf) || verificaSegundoDigito(cpf)){
+        console.log('CPF inexistente');
+    }else{
+        console.log('CPF existe');
+    }
 
-    verificaNumerosRepetidos(cpf);
 }
 
 function verificaNumerosRepetidos(cpf){

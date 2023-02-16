@@ -2,8 +2,8 @@ import ehUmCPF from "./validacaoCPF.js";
 
 const campos = document.querySelectorAll("[required]");
 
-campos.forEach((campo), () => {
-    campo.addEventListener("blur", () => verificaCampo(campo))
+campos.forEach((campo) => {
+    campo.addEventListener("blur", () => verificaCampo(campo));
 })
 
 function verificaCampo(campo){
