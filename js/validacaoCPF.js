@@ -1,10 +1,9 @@
-export default function ehUmCPF(campo){
+export default function ehUmCPF(campo){ //exporta a função para ser usada em outro arquivo
     const cpf = campo.value.replace(/\.|-/g, "");
     console.log(cpf)
+
     if(verificaNumerosRepetidos(cpf) || verificaPrimeiroDigito(cpf) || verificaSegundoDigito(cpf)){
-        console.log('CPF inexistente');
-    }else{
-        console.log('CPF existe');
+        campo.setCustomValidity('CPF inexistente');
     }
 
 }
@@ -23,9 +22,10 @@ function verificaNumerosRepetidos(cpf){
         '99999999999'
     ]
 
-    return numerosRepetidos.includes(cpf);
+    return numerosRepetidos.includes(cpf);//retorna true se o cpf foi igual àlguns dos númerosRepetidos
 }
 
+// Abaixo a forma de validar o número de CPF através do cálculo dos dígitos de verificação
 function verificaPrimeiroDigito(cpf){
     let soma = 0;
     let multiplicador = 10;
@@ -38,7 +38,7 @@ function verificaPrimeiroDigito(cpf){
     if(soma == 10 || soma == 11){
         soma = 0
     }
-    return soma != cpf[9];
+    return soma != cpf[9];//retorna true se o valor de soma for diferente do primeiro dígito do CPF
 }
 
 function verificaSegundoDigito(cpf){
