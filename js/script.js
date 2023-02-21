@@ -2,47 +2,33 @@ import ehUmCPF from "./validacaoCPF.js"; //importa funções de outro arquivo
 import ehDeMaior from "./validarIdade.js";
 
 const campos = document.querySelectorAll("[required]");
+const formulario = document.querySelector("[data-formulario]");
+
+formulario.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    console.log(e)
+    const listaRespostas = {
+        "nome": e.target.elements["nome"].value,
+        "email": e.target.elements["email"].value,
+        "rg": e.target.elements["rg"].value,
+        "cpf": e.target.elements["cpf"].value,
+        "aniversario": e.target.elements["aniversario"].value,
+    }
+
+    localStorage.setItem("cadastro", JSON.stringify(listaRespostas));
+
+    window.location.href = "./abrir-conta-form-2.html";
+})
 
 campos.forEach((campo) => {
     campo.addEventListener("blur", () => verificaCampo(campo));
     //evento blur: quando tiramos o foco do campo, ex: clique fora
     
-    campo.addEventListener("invalid", evento => evento.preventDefault());
+campo.addEventListener("invalid", evento => evento.preventDefault());
     //desliga a função do navegador que emite um alerta caso o formulário tenha algum erro
 
 })
-
-function verificaCampo(campo){
-    console.log(campo.validity);
-    //o .validity tem informações do campo do formulário como se foi validado
-    // ou se teve algum erro. além disso entrega qual foi o tipo de erro
-    //usado para personalizar as mensagens de erro
-
-    let mensagem = "";
-    campo.setCustomValidity("")//apaga as mensagens de erro anteriores
-    if(campo.name == "cpf" && campo.value.length >= 11){
-        ehUmCPF(campo);
-    }
-    
-    if(campo.name == "aniversario" && campo.value != ""){
-        ehDeMaior(campo);
-    }
-    tiposDeErro.forEach(erro => {//compara se o valor de erro corresponde a algum da lista de erros
-        // se verdaderio executa função que irá buscar em 'mensagens' com o nome do campo e o nome do erro
-        if(campo.validity[erro]){
-            mensagem = mensagens[campo.name][erro];
-        }
-    })
-    const mensagemErro = campo.parentNode.querySelector(".mensagem-erro");
-    const validadorDeInput = campo.checkValidity();//checa se o campo foi validado e salva true ou false
-
-    if(!validadorDeInput){//se não validado imprime na tela da tag span do index a msg de erro
-        mensagemErro.textContent = mensagem;
-
-    }else{
-        mensagemErro.texContent = "";//se validado mensagem em branco
-    }
-}
 
 //array de erros:
 const tiposDeErro = [
@@ -82,5 +68,39 @@ const mensagens = {
     },
     termos: {
         valueMissing: 'Você deve aceitar nossos termos antes de continuar.',
+    }
+}
+
+function verificaCampo(campo){
+    console.log(campo.validity);
+    //o .validity tem informações do campo do formulário como se foi validado
+    // ou se teve algum erro. além disso entrega qual foi o tipo de erro
+    //usado para personalizar as mensagens de erro
+
+    let mensagem = "";
+    campo.setCustomValidity("")//apaga as mensagens de erro anteriores
+    if(campo.name == "cpf" && campo.value.length >= 11){
+        ehUmCPF(campo);
+    }
+    
+    if(campo.name == "aniversario" && campo.value != ""){
+        ehDeMaior(campo);
+    }
+    
+    tiposDeErro.forEach(erro => {
+        //compara se o valor de erro corresponde a algum da lista de erros
+        // se verdaderio executa função que irá buscar em 'mensagens' com o nome do campo e o nome do erro
+        if(campo.validity[erro]){
+            mensagem = mensagens[campo.name][erro];
+        }
+    })
+    const mensagemErro = campo.parentNode.querySelector(".mensagem-erro");
+    const validadorDeInput = campo.checkValidity();//checa se o campo foi validado e salva true ou false
+
+    if(!validadorDeInput){//se não validado imprime na tela da tag span do index a msg de erro
+        mensagemErro.textContent = mensagem;
+
+    }else{
+        mensagemErro.texContent = "";//se validado mensagem em branco
     }
 }
