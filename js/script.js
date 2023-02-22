@@ -25,7 +25,7 @@ campos.forEach((campo) => {
     campo.addEventListener("blur", () => verificaCampo(campo));
     //evento blur: quando tiramos o foco do campo, ex: clique fora
     
-campo.addEventListener("invalid", evento => evento.preventDefault());
+    campo.addEventListener("invalid", evento => evento.preventDefault());
     //desliga a função do navegador que emite um alerta caso o formulário tenha algum erro
 
 })
@@ -79,6 +79,7 @@ function verificaCampo(campo){
 
     let mensagem = "";
     campo.setCustomValidity("")//apaga as mensagens de erro anteriores
+
     if(campo.name == "cpf" && campo.value.length >= 11){
         ehUmCPF(campo);
     }
@@ -94,6 +95,7 @@ function verificaCampo(campo){
             mensagem = mensagens[campo.name][erro];
         }
     })
+
     const mensagemErro = campo.parentNode.querySelector(".mensagem-erro");
     const validadorDeInput = campo.checkValidity();//checa se o campo foi validado e salva true ou false
 

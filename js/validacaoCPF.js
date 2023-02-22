@@ -4,6 +4,9 @@ export default function ehUmCPF(campo){ //exporta a função para ser usada em o
 
     if(verificaNumerosRepetidos(cpf) || verificaPrimeiroDigito(cpf) || verificaSegundoDigito(cpf)){
         campo.setCustomValidity('CPF inexistente');
+    }else{
+
+        campo.setCustomValidity("")
     }
 
 }
