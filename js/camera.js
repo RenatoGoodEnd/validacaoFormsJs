@@ -28,6 +28,7 @@ botaoTirarFoto.addEventListener('click', function () {
     mensagem.style.display = "block";
 });
 
+//Evento que busca dados no localStorage e inclui um elemento, no caso imagem, no cadastro
 botaoEnviarFoto.addEventListener('click', () => {
     const receberDadosExistentes = localStorage.getItem("cadastro");
     const converteRetorno = JSON.parse(receberDadosExistentes);

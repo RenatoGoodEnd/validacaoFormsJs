@@ -4,6 +4,8 @@ import ehDeMaior from "./validarIdade.js";
 const campos = document.querySelectorAll("[required]");
 const formulario = document.querySelector("[data-formulario]");
 
+
+//Evento para gravar as informações do formulário no localStorage
 formulario.addEventListener("submit", (e) => {
     e.preventDefault();
 
